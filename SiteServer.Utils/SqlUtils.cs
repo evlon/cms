@@ -16,7 +16,7 @@ namespace SiteServer.Utils
     {
         public const string Asterisk = "*";
 
-        public static string GetConnectionString(DatabaseType databaseType, string server, bool isDefaultPort, int port, string userName, string password, string database)
+        public static string GetConnectionString(DatabaseType databaseType, string server, bool isDefaultPort, int port, string userName, string password, string database,string charset="utf8")
         {
             var connectionString = string.Empty;
 
@@ -31,6 +31,11 @@ namespace SiteServer.Utils
                 if (!string.IsNullOrEmpty(database))
                 {
                     connectionString += $"Database={database};";
+                }
+
+                if (!string.IsNullOrWhiteSpace(charset))
+                {
+                    connectionString += $"charset={charset};";
                 }
             }
             else if (databaseType == DatabaseType.SqlServer)
